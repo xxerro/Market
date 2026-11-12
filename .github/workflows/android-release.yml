@@ -39,7 +39,7 @@ jobs:
         continue-on-error: true
 
       - name: Build release APK
-        run: flutter build apk --release --no-shrink
+        run: flutter build apk --release --no-shrink --verbose
 
       - name: Publish latest APK release
         uses: softprops/action-gh-release@v2
