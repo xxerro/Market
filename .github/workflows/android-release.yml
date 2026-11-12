@@ -38,8 +38,8 @@ jobs:
         run: flutter test --reporter expanded
         continue-on-error: true
 
-      - name: Build tested debug APK
-        run: flutter build apk --debug
+      - name: Build Android APK
+        run: flutter build apk --release --no-shrink --verbose
 
       - name: Configure Android SDK paths
         run: |
@@ -48,13 +48,16 @@ jobs:
 
       - name: Prepare downloadable APK
         shell: bash
-        run: cp build/app/outputs/flutter-apk/app-debug.apk Market-debug.apk
+        run: cp build/app/outputs/flutter-apk/app-release.apk Market.apk
 
-      - name: Publish test APK release
+      - name: Publish APK release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: android-test-latest
-          name: Android test APK (Debug)
+          tag_name: android-latest
+          name: Latest Android APK
+          target_commitish: main
+          make_latest: true
+          overwrite_files: true
           target_commitish: main
           make_latest: true
           overwrite_files: true
