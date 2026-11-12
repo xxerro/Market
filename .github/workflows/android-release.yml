@@ -41,6 +41,11 @@ jobs:
       - name: Build tested debug APK
         run: flutter build apk --debug
 
+      - name: Configure Android SDK paths
+        run: |
+          echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
+          echo "sdk.dir=$ANDROID_HOME" >> android/local.properties
+
       - name: Prepare downloadable APK
         shell: bash
         run: cp build/app/outputs/flutter-apk/app-debug.apk Market-debug.apk
