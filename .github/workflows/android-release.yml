@@ -1,4 +1,4 @@
-name: Android release APK
+name: Android APK download
 
 on:
   push:
@@ -38,14 +38,18 @@ jobs:
         run: flutter test --reporter expanded
         continue-on-error: true
 
-      - name: Build release APK
-        run: flutter build apk --release --no-shrink --verbose
+      - name: Build tested debug APK
+        run: flutter build apk --debug
 
-      - name: Publish latest APK release
+      - name: Prepare downloadable APK
+        shell: bash
+        run: cp build/app/outputs/flutter-apk/app-debug.apk Market-debug.apk
+
+      - name: Publish test APK release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: android-latest
-          name: Latest Android APK
+          tag_name: android-test-latest
+          name: Android test APK (Debug)
           target_commitish: main
           make_latest: true
           overwrite_files: true
